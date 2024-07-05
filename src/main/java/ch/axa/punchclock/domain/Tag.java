@@ -1,5 +1,6 @@
 package ch.axa.punchclock.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -13,14 +14,12 @@ import java.util.Set;
 @NoArgsConstructor
 public class Tag {
   @Id
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
   @NotNull(message = "The name must not be NULL!")
   private String name;
-
-  @NotNull(message = "The name must not be NULL!")
-  private String description;
 
   @ManyToMany
   @JoinTable(

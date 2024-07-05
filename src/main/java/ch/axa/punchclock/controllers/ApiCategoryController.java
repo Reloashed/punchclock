@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 public class ApiCategoryController {
 
   @Autowired
@@ -26,7 +27,7 @@ public class ApiCategoryController {
       return ResponseEntity.of(categoryRepository.findById(id));
   }
 
-  @PostMapping("/categories/")
+  @PostMapping("/categories")
   public Category addCategory(@RequestBody Category category) {
     return categoryRepository.save(category);
   }

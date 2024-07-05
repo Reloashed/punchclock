@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 public class ApiTagController {
 
   @Autowired
@@ -26,7 +27,7 @@ public class ApiTagController {
     return ResponseEntity.of(tagRepository.findById(id));
   }
 
-  @PostMapping("/tags/")
+  @PostMapping("/tags")
   public Tag addTag(@RequestBody Tag tag) {
     return tagRepository.save(tag);
   }

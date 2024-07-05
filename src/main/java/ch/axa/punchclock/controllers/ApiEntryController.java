@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api")
 public class ApiEntryController {
 
   @Autowired
@@ -26,7 +27,7 @@ public class ApiEntryController {
     return ResponseEntity.of(entryRepository.findById(id));
   }
 
-  @PostMapping("/entries/")
+  @PostMapping("/entries")
   public Entry addEntry(@RequestBody Entry entry) {
     return entryRepository.save(entry);
   }

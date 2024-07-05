@@ -1,6 +1,7 @@
 package ch.axa.punchclock.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
@@ -18,6 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Entry {
   @Id
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
