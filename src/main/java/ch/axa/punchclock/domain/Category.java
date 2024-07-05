@@ -1,12 +1,12 @@
 package ch.axa.punchclock.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -18,4 +18,7 @@ public class Category {
 
   @NotNull(message = "The name must not be NULL!")
   private String name;
+
+  @OneToMany(mappedBy = "category")
+  private Set<Entry> entries = new HashSet<>();
 }

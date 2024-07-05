@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -34,7 +36,11 @@ public class Entry {
   private String description;
 
   @Column(name = "fk_category_id")
-  private long fkCategoryId;
+  @ManyToOne
+  private Category category;
+
+  @ManyToMany(mappedBy = "entries")
+  private Set<Tag> tags = new HashSet<>();
 
   @JsonIgnore
   @AssertTrue(message = "The check out date must be after the check in date!")
