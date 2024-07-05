@@ -35,7 +35,6 @@ public class Entry {
   @NotBlank(message = "Description must not be empty!")
   private String description;
 
-  @Column(name = "fk_category_id")
   @ManyToOne
   private Category category;
 
