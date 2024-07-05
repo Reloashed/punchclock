@@ -4,6 +4,8 @@ import ch.axa.punchclock.domain.Entry;
 import ch.axa.punchclock.domain.Tag;
 import ch.axa.punchclock.repositories.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -20,23 +22,29 @@ public class ApiTagController {
   }
 
   @GetMapping("/tags/{id}")
-  public Optional<Tag> getTagById(@PathVariable long id) {
-    return tagRepository.findById(id);
+  public ResponseEntity<Tag> getTagById(@PathVariable long id) {
+    return ResponseEntity.of(tagRepository.findById(id));
   }
 
   @PostMapping("/tags/")
-  public Tag addEntry(@RequestBody Tag tag) {
+  public Tag addTag(@RequestBody Tag tag) {
     return tagRepository.save(tag);
   }
 
   @PutMapping("/tags/{id}")
-  public Tag editEntry(@PathVariable long id, @RequestBody Tag tag) {
+  public Tag editTag(@PathVariable long id, @RequestBody Tag tag) {
     tag.setId(id);
     return tagRepository.save(tag);
   }
 
   @DeleteMapping("/tags/{id}")
-  public void deleteEntry(@PathVariable long id) {
-    tagRepository.deleteById(id);
+  public ResponseEntity<Tag> deleteTag(@PathVariable long id) {
+    Optional<Tag> tagOpt = tagRepository.findById(id);
+    if (tagOpt.isPresent()) {
+      tagRepository.delete(tagOpt.get());
+      return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }
