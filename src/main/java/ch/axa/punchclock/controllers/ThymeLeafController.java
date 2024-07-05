@@ -6,12 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ThymeLeafController {
-  @GetMapping("/")
-  public String index(Model model) {
-    model.addAttribute("message", "Hello Thymeleaf");
-    return "index";
-  }
-
   @GetMapping("/add")
   public String add(Model model) {
     model.addAttribute("add", "Add Page");
