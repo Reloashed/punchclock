@@ -39,6 +39,9 @@ public class Entry {
   @JsonIgnore
   @AssertTrue(message = "The check out date must be after the check in date!")
   public boolean isCheckOutAfterCheckIn() {
+    if (checkIn == null || checkOut == null) {
+      return true;
+    }
     return checkIn.isBefore(checkOut);
   }
 }
