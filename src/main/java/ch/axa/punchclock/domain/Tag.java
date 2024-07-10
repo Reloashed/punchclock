@@ -1,30 +1,54 @@
 package ch.axa.punchclock.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Data
-@NoArgsConstructor
-public class Tag {
-  @Id
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-  @NotNull(message = "The name must not be NULL!")
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tag")
+public class Tag {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private String id;
+
   private String name;
 
-  @ManyToMany
-  @JoinTable(
-          name = "entry_tag",
-          joinColumns = @JoinColumn(name = "tag_id"),
-          inverseJoinColumns = @JoinColumn(name = "entry_id"))
+  @JsonIgnore
+  @ManyToMany(mappedBy = "tags")
   private Set<Entry> entries = new HashSet<>();
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Set<Entry> getEntries() {
+    return entries;
+  }
+
+  public void setEntries(Set<Entry> entries) {
+    this.entries = entries;
+  }
+
+
 }

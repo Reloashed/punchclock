@@ -25,7 +25,7 @@ public class EntryService {
     repo.delete(entry);
   }
 
-  public Optional<Entry> findById(long id) {
+  public Optional<Entry> findById(String id) {
     return repo.findById(id);
   }
 

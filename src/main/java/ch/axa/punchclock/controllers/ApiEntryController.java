@@ -1,6 +1,5 @@
 package ch.axa.punchclock.controllers;
 
-import ch.axa.punchclock.domain.Category;
 import ch.axa.punchclock.domain.Entry;
 import ch.axa.punchclock.repositories.EntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,18 @@ public class ApiEntryController {
     return entryRepository.findAll();
   }
 
+  @GetMapping("categories/{id}/entries")
+  public Iterable<Entry> getEntriesByCategory(@PathVariable long id) {
+     return entryRepository.findByCategoryId(id);
+  }
+
+  @GetMapping("tags/{id}/entries")
+  public Iterable<Entry> getEntriesByTags(@PathVariable String id) {
+    return entryRepository.findByTagsId(id);
+  }
+
   @GetMapping("/entries/{id}")
-  public ResponseEntity<Entry> getEntryById(@PathVariable long id) {
+  public ResponseEntity<Entry> getEntryById(@PathVariable String id) {
     return ResponseEntity.of(entryRepository.findById(id));
   }
 
@@ -33,13 +42,13 @@ public class ApiEntryController {
   }
 
   @PutMapping("/entries/{id}")
-  public Entry editEntry(@PathVariable long id, @RequestBody Entry entry) {
+  public Entry editEntry(@PathVariable String id, @RequestBody Entry entry) {
     entry.setId(id);
     return entryRepository.save(entry);
   }
 
   @DeleteMapping("/entries/{id}")
-  public ResponseEntity<Entry> deleteEntry(@PathVariable long id) {
+  public ResponseEntity<Entry> deleteEntry(@PathVariable String id) {
     Optional<Entry> entryOpt = entryRepository.findById(id);
     if (entryOpt.isPresent()) {
       entryRepository.delete(entryOpt.get());

@@ -19,7 +19,6 @@ public class EntryServiceTest {
   @Test
   public void testIfEntryCanBeSaved() {
     Entry entry = new Entry();
-    entry.setDescription("Awesome");
     entry.setCheckIn(LocalDateTime.now());
     entry.setCheckOut(LocalDateTime.now().plusHours(2));
 

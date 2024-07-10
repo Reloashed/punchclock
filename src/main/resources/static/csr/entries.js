@@ -158,7 +158,7 @@ const renderTags = () => {
       checkbox.setAttribute('id', `tag${tag.id}Input`);
       const label = document.createElement('label');
       label.setAttribute('for', `tag${tag.id}Input`);
-      label.innerText = tag.title;
+      label.innerText = tag.name;
       return [checkbox, label];
     }).flat());
   }
@@ -171,7 +171,7 @@ const renderCategories = () => {
     categorySelect.replaceChildren(...categories.map((category) => {
       const option = document.createElement('option');
       option.setAttribute('value', category.id);
-      option.innerText = category.title;
+      option.innerText = category.name;
       return option;
     }));
   }
@@ -183,8 +183,8 @@ const renderEntries = () => {
   entries.forEach((entry) => {
     const row = document.createElement('tr');
     row.appendChild(createCell(entry.id));
-    row.appendChild(createCell(entry.category.title));
-    row.appendChild(createCell(entry.tags.map((tag) => tag.title).join(', ')));
+    row.appendChild(createCell(entry.category.name));
+    row.appendChild(createCell(entry.tags.map((tag) => tag.name).join(', ')));
     row.appendChild(createCell(new Date(entry.checkIn).toLocaleString()));
     row.appendChild(createCell(new Date(entry.checkOut).toLocaleString()));
     row.appendChild(createActionsCell(entry.id));

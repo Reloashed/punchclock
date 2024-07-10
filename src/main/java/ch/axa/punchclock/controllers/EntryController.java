@@ -39,14 +39,14 @@ public class EntryController {
   }
 
   @GetMapping("/edit/{id}")
-  public String edit(@PathVariable long id, Model model) {
+  public String edit(@PathVariable String id, Model model) {
     Entry entry = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid entry Id: " + id));
     model.addAttribute("entry", entry);
     return "edit";
   }
 
   @PostMapping("/update/{id}")
-  public String update(@PathVariable long id, @Valid Entry entry, BindingResult result, Model model) {
+  public String update(@PathVariable String id, @Valid Entry entry, BindingResult result, Model model) {
     if (result.hasErrors()) {
       entry.setId(id);
       return "edit";
@@ -57,7 +57,7 @@ public class EntryController {
   }
 
   @GetMapping("/delete/{id}")
-  public String delete(@PathVariable long id) {
+  public String delete(@PathVariable String id) {
     repository.deleteById(id);
     return "redirect:/";
   }

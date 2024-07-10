@@ -23,7 +23,7 @@ public class ApiTagController {
   }
 
   @GetMapping("/tags/{id}")
-  public ResponseEntity<Tag> getTagById(@PathVariable long id) {
+  public ResponseEntity<Tag> getTagById(@PathVariable String id) {
     return ResponseEntity.of(tagRepository.findById(id));
   }
 
@@ -33,13 +33,13 @@ public class ApiTagController {
   }
 
   @PutMapping("/tags/{id}")
-  public Tag editTag(@PathVariable long id, @RequestBody Tag tag) {
+  public Tag editTag(@PathVariable String id, @RequestBody Tag tag) {
     tag.setId(id);
     return tagRepository.save(tag);
   }
 
   @DeleteMapping("/tags/{id}")
-  public ResponseEntity<Tag> deleteTag(@PathVariable long id) {
+  public ResponseEntity<Tag> deleteTag(@PathVariable String id) {
     Optional<Tag> tagOpt = tagRepository.findById(id);
     if (tagOpt.isPresent()) {
       tagRepository.delete(tagOpt.get());
